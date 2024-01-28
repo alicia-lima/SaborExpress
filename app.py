@@ -125,9 +125,9 @@ def access_restaurant(choice):
                 linhas[i] = restaurant_access
                 find_code = True
                 break
-            elif i == len(linhas) - 1:
+            elif i == len(linhas) - 1: # FAZ COM O QUE PARE QUANDO CHEGAR NO FIM DO ARQUIVO
                 not_found_number = True
-                
+
     if find_code:
         modify_registration(restaurant_access, choice)
 
