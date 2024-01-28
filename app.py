@@ -118,17 +118,22 @@ def access_restaurant(choice):
     with open("restaurant.txt", "r") as file:
         linhas = file.readlines()
         find_code = False
-        while not find_code:
-            for i, restaurant_access in enumerate(linhas):
-                restaurant_access = restaurant_access.rstrip()
-                if info_code in restaurant_access:
-                    linhas[i] = restaurant_access
-                    find_code = True
-                    break
+        not_found_number = False
+        for i, restaurant_access in enumerate(linhas):
+            restaurant_access = restaurant_access.rstrip()
+            if info_code in restaurant_access:
+                linhas[i] = restaurant_access
+                find_code = True
+                break
+            elif i == len(linhas) - 1:
+                not_found_number = True
+                
     if find_code:
         modify_registration(restaurant_access, choice)
-    else:
+
+    if not_found_number:
         print("Restaurant not found!")
+        return_to_menu()
 
 
 def modify_registration(restaurant_access, choice):
