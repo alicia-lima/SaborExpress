@@ -1,55 +1,7 @@
 import os
 import docbr as dbr
-import random
-
-
-class Restaurant:
-    """ representa um restaurante """
-    def __init__(self, registration_number, restaurant_name, cuisine_type, document):
-        """ Inicializa um restaurante e suas caracteristicas esperadas"""
-        self.registration_number = registration_number
-        self.restaurant_name = restaurant_name
-        self.cuisine_type = cuisine_type
-        self.document = document
-        self.valid = 'Inactive'
-
-    @classmethod
-    def register_restaurant(cls):
-        """ registra um restaurante em um arquivo txt a partir das informações fornecidas pelo usuário,
-        com um número de regristo único e aleátorio."""
-        show_subtitle("Restaurants Registration")
-        registration_number = random.randint(100000, 999999)
-        restaurant_name = input("Enter the name of the restaurant: ").title()
-        cuisine_type = input("Enter the type of cuisine: ").title()
-        document = dbr.parse(input("Enter the CNPJ of the restaurant: "), doctype='cnpj', mask=True)
-
-        with open("restaurant.txt", "r") as file:
-            while registration_number in file:
-                registration_number = random.randint(100000, 999999)
-
-        restaurant = Restaurant(registration_number, restaurant_name, cuisine_type, document)
-        with open("restaurant.txt", "a") as file:
-            file.write(f'{registration_number};{restaurant.restaurant_name}; {restaurant.cuisine_type};'
-                       f'{restaurant.document};{restaurant.valid}\n')
-            print("Restaurant added to the file successfully!")
-
-            return_to_menu()
-            return [restaurant]
-
-    @classmethod
-    def list_restaurants(cls):
-        """ Cria uma lista de restaurantes registrado a partir de um arquivo txt"""
-        show_subtitle("Restaurants")
-
-        with open("restaurant.txt", "r") as file:
-            restaurant_list = []
-            for restaurant in file:
-                formatted_restaurant = format_restaurant(restaurant)
-                restaurant_list.append(formatted_restaurant)
-                print(formatted_restaurant)
-        return_to_menu()
-        return restaurant_list
-
+from partial import show_subtitle, return_to_menu, format_restaurant
+from restaurant import Restaurant
 
 def app_name():
     os.system('cls')
@@ -89,11 +41,6 @@ def modify_menu_option():
             "\n"
             "     ")
 
-
-def return_to_menu():
-    return input("\n\nPress Enter to return to the menu... ")
-
-
 def registration_number():
     """ recebe o numero de registro do usuário e o retorna para abrir o restaurante específico para atualizar as
     informações"""
@@ -106,16 +53,6 @@ def registration_number():
             os.system('cls')
             print("Invalid input. Please enter a number.")
     return registration_number
-
-
-def show_subtitle(txt):
-    """ recebe o texto de mensagem e limpa a tela antes de mostrar o texto"""
-    os.system('cls')
-    linha = '*' * (len(txt) + 8)
-    print(linha)
-    print(f"*** {txt} ***")
-    print(linha + "\n\n")
-
 
 def choice_option():
     """ recebe a escolha do usuário em ambos os menus do programa"""
@@ -226,24 +163,8 @@ def modify_registration(restaurant_access, choice):
             file.write(content)
             file.truncate()
 
-
-def format_restaurant(restaurant):
-    """ Cria uma string com todas as informações do restaurante"""
-    if ";" in restaurant:
-        parts = restaurant.strip().split(";")
-        if len(parts) == 5:
-            restaurant_number, restaurant_name, cuisine_type, cnpj, valid = restaurant.strip().split(";")
-            formatted_restaurant = (f" \nRegistration number: {restaurant_number} \n"
-                                    f"Restaurant Name: {restaurant_name} \n"
-                                    f"Cuisine Type: {cuisine_type} \n"
-                                    f"CNPJ: {cnpj}\n"
-                                    f"Activate: {valid}")
-            return formatted_restaurant
-
-
 def close_app():
     show_subtitle("Exit the program")
-
 
 def main_menu():
     """ Menu principal, que direciona para as def de acordo com a escolha do usuário"""
