@@ -14,7 +14,8 @@
 
 <p align="center">
  <a href="#objetivo">Objetivo</a> •
- <a href="#sobre">Sobre</a>
+ <a href="#sobre">Sobre</a> •
+ <a href="#status">Status do Projeto </a>
 </p>
 
 
@@ -25,3 +26,9 @@
 <h2 id=sobre> Sobre </h2>
 
 <p> Projeto de cadastro de restaurantes que possiblita a criação de um cadastro com nome, tipo de cozinha e CNPJ, sendo criado um número de cadastro único e realizado a ativação do restaurante a partir da validação do CNPJ em um Pacote Python para validação de documentos brasileiros. Sendo esses dados armazenados em um 'banco de dados' simples em arquivo txt. </p>
+
+<h2 id=status> Status do Projeto </h2>
+
+<h4 align="center"> 
+	🚧  Sabor Express 🚀 Em construção...  🚧
+</h4> 
